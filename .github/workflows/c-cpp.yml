@@ -21,3 +21,7 @@ jobs:
       run: make check
     - name: make distcheck
       run: make distcheck
+    - name: download curl
+      run: sudo apt-get install curl
+    - name: download libcurl
+      run: sudo apt-get install libcurl4-openssl-dev

@@ -15,6 +15,7 @@
 
 
 //This function handles the API call. We will modify this later so that it can call a specific API endnode. We do this by changing the URL. We can implement this by giving the user an interactive menu.
+//API being used is NFL Team Stats. 'https://rapidapi.com/DathanStoneDev/api/nfl-team-stats'
 static char *request() {
 	CURL *curl = NULL;
 	CURLcode res;
@@ -32,6 +33,17 @@ static char *request() {
 	}
 	curl_easy_cleanup(curl);
 }
+
+//We need an interactive menu where the user is able to choose what kinds of stats they want.
+//Different API endpoint URLs are broken up by defense/offense and for the given year.
+//If we want them to have the option to choose more filtering options, like which team they want to see the stats for, we're going to need to implement that manually with the parser.
+
+//We need a way of passing the results of the request function to the Jannson parser
+
+//Then we need to make to make the parser segregate information by team stats
+
+//We need to then have data structures for handling each group of information to pass to the display stats function.
+
 
 int main() {
 	request();

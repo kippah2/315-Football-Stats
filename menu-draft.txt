@@ -1,0 +1,64 @@
+//the main menu that leads to the next menus
+
+void stats_menu()
+{
+	printf("*******************************************");
+	printf("\n*    The C Team Football Stats Program    *");
+	printf("\n*  Please Choose From the Options Below   *");
+	printf("\n*           1. Offensive Stats            *");
+	printf("\n*           2. Defensive Stats            *");
+	printf("\n*******************************************");
+}
+
+//display this menu if the choice is 1
+
+void offensive_menu()
+{
+	printf("*******************************************");
+	printf("\n* Choose Which Stat You Want to Look at *");
+	printf("\n*           1. Passing Yards            *");
+	printf("\n*           2. Passing TDs              *");
+	printf("\n*           3. Interceptions            *");
+	printf("\n*           4. Rushing Yards            *");
+	printf("\n*           5. Rushing Tds              *");
+	printf("\n*           6. Receiving Yards          *");
+	printf("\n*           7. Receiving TDs            *");
+	printf("\n*******************************************");
+
+}
+
+//display this menu if the choice is 2
+
+void defensive_menu()
+{
+	printf("*******************************************");
+	printf("\n* Choose Which Stat You Want to Look at *");
+	printf("\n*               1. Tackles              *");
+	printf("\n*               2. Sacks                *");
+	printf("\n*               3. Interceptions        *");
+	printf("\n*               4. Tackles For Loss     *");
+	printf("\n*               5. Forced Fumbles       *");
+	printf("\n*               6. Fumble Recoveries    *");
+	printf("\n*               7. Defensive TDs        *");
+	printf("\n*******************************************");
+
+}
+
+//display this menu when the user selects a choice from either the offensive or defensive menu
+
+void specifics()
+{
+	printf("*******************************************");
+	printf("\n*   Please Specify Which Team and Year  *");
+	printf("\n*******************************************");
+
+	printf("\n*   Enter the Team you Wish to Display  *");
+	// possibly display a table or list of teams?
+	scanf("%s", &team);
+	printf("\n*   Enter the Year you Wish to Display  *");
+	scanf("%s", &year);
+}
+//after the specifics are entered the stats for that team and year depending
+//on what the user selected will be shown to them
+
+//just a draft. can be changed however to fit the project and make it as easy as possible

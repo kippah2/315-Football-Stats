@@ -12,26 +12,98 @@
 #include <curl/curl.h>
 #include <curl/easy.h>
 //For parsing, we're going to want to use Jannson. See 'https://github.com/akheron/jansson' and 'https://jansson.readthedocs.io/en/latest/'
+//structure that defines how returned info from curl will be stored.
+struct MemoryStruct
+{
+  char *memory;
+  size_t size;
+};
 
+static size_t
+WriteMemoryCallback (void *contents, size_t size, size_t nmemb, void *userp)
+{
+  size_t realsize = size * nmemb;
+  struct MemoryStruct *mem = (struct MemoryStruct *) userp;
+
+  char *ptr = realloc (mem->memory, mem->size + realsize + 1);
+  if (!ptr)
+    {
+      printf ("not enough memory (realloc returned NULL)\n");
+      return 0;
+    }
+
+  mem->memory = ptr;
+  memcpy (&(mem->memory[mem->size]), contents, realsize);
+  mem->size += realsize;
+  mem->memory[mem->size] = 0;
+
+  //printf("%s", mem->memory);
+
+  return realsize;
+}
 
 //This function handles the API call. We will modify this later so that it can call a specific API endnode. We do this by changing the URL. We can implement this by giving the user an interactive menu.
 //API being used is NFL Team Stats. 'https://rapidapi.com/DathanStoneDev/api/nfl-team-stats'
-static char *request() {
-	CURL *curl = NULL;
-	CURLcode res;
-	curl = curl_easy_init();
-	if(curl) {
-	  curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "GET");
-	  curl_easy_setopt(curl, CURLOPT_URL, "https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/receiving-stats/offense/2019");
-	  curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-	  curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
-	  struct curl_slist *headers = NULL;
-	  headers = curl_slist_append(headers, "x-rapidapi-key: f214693c05mshcb4f9b9797a4754p1c6cc7jsn454debc36d9a");
-	  headers = curl_slist_append(headers, "x-rapidapi-host: nfl-team-stats.p.rapidapi.com");
-	  curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-	  res = curl_easy_perform(curl);
+
+static char *
+request ()
+{
+
+  struct MemoryStruct chunk;
+  chunk.memory = malloc (1);
+  chunk.size = 0;
+
+  CURL *curl;
+  CURLcode res;
+  curl = curl_easy_init ();
+  if (curl)
+    {
+      //define api call as GET and direct it to given URL
+      curl_easy_setopt (curl, CURLOPT_CUSTOMREQUEST, "GET");
+      curl_easy_setopt (curl, CURLOPT_URL,
+			"https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/receiving-stats/offense/2019");
+      curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1L);
+
+      //use curl over https
+      curl_easy_setopt (curl, CURLOPT_DEFAULT_PROTOCOL, "https");
+
+      struct curl_slist *headers = NULL;
+
+      //send api key in curl header to endnode can identify who is requesting
+      headers =
+	curl_slist_append (headers,
+			   "x-rapidapi-key: f214693c05mshcb4f9b9797a4754p1c6cc7jsn454debc36d9a");
+      //define API host in header of curl
+      headers =
+	curl_slist_append (headers,
+			   "x-rapidapi-host: nfl-team-stats.p.rapidapi.com");
+
+      curl_easy_setopt (curl, CURLOPT_HTTPHEADER, headers);
+
+      //send data to struct MemoryStruct
+      curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+      curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
+
+      //now that parameters for curl are set, run curl
+      res = curl_easy_perform (curl);
+
+      //if curl function doesnt return success, say there was an error
+      if (res != CURLE_OK)
+	{
+	  fprintf (stderr, "curl_easy_perform() failed: %s\n",
+		   curl_easy_strerror (res));
 	}
-	curl_easy_cleanup(curl);
+      else
+	{
+	  printf ("%lu bytes retrieved\n", (unsigned long) chunk.size);
+	}
+    }
+  //cleans up curl from memory
+  curl_easy_cleanup (curl);
+  free (chunk.memory);
+
+  curl_global_cleanup ();
+
 }
 
 //We need an interactive menu where the user is able to choose what kinds of stats they want.
@@ -45,6 +117,8 @@ static char *request() {
 //We need to then have data structures for handling each group of information to pass to the display stats function.
 
 
-int main() {
-	request();
+int
+main ()
+{
+  request ();
 }

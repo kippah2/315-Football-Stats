@@ -11,14 +11,17 @@
 #include <unistd.h>
 #include <curl/curl.h>
 #include <curl/easy.h>
-//For parsing, we're going to want to use Jannson. See 'https://github.com/akheron/jansson' and 'https://jansson.readthedocs.io/en/latest/'
-//structure that defines how returned info from curl will be stored.
+
+//We will probably need another, smaller structure that holds different statistics about a team. This will need to be done post-parsing.
+
+//Defines structure for holding the results of the API call. Build another function that uses what happens in here to parse it.
 struct MemoryStruct
 {
   char *memory;
   size_t size;
 };
 
+//This function stores the results from the API call into struct mem of type MemoryStruct
 static size_t
 WriteMemoryCallback (void *contents, size_t size, size_t nmemb, void *userp)
 {
@@ -117,8 +120,7 @@ request ()
 //We need to then have data structures for handling each group of information to pass to the display stats function.
 
 
-int
-main ()
+int main ()
 {
   request ();
 }

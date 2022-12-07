@@ -1,0 +1,79 @@
+//the main menu that leads to the next menus
+
+void stats_menu()
+{
+	printf("*********************************************");
+	printf("\n*    The C Team Football Stats Program    *");
+	printf("\n*  Please Choose From the Options Below   *");
+	printf("\n*           1. Offensive Stats            *");
+	printf("\n*           2. Defensive Stats            *");
+	printf("\n*           3. Win statistics             *");
+	printf("\n*******************************************\n)";
+}
+
+//display this menu if the choice is 1
+
+void offensive_menu()
+{
+	printf("*******************************************");
+	printf("\n* Choose Which Stat You Want to Look at *");
+	printf("\n*          1. Total Receives made       *");
+	printf("\n*          2. Total Receving Touchdowns *");
+	printf("\n*          3. Total Yards Travelled     *");
+	printf("\n*          4. Total Rushed Yards        *");
+	printf("\n*          5. Total Rushed Touchdowns   *");
+	printf("\n*          6. Total Yards Passed        *");
+	printf("\n*          7. Total Completed Passes    *");
+	printf("\n*          8. Total Passed Touchdowns   *");
+	printf("\n*****************************************\n");
+
+}
+
+//display this menu if the choice is 2
+
+void defensive_menu()
+{
+	printf("*******************************************");
+	printf("\n*          1. Total Receives made       *");
+	printf("\n*          2. Total Receving Touchdowns *");
+	printf("\n*          3. Total Yards Travelled     *");
+	printf("\n*          4. Total Rushed Yards        *");
+	printf("\n*          5. Total Rushed Touchdowns   *");
+	printf("\n*          6. Total Yards Passed        *");
+	printf("\n*          7. Total Completed Passes    *");
+	printf("\n*          8. Total Passed Touchdowns   *");
+	printf("\n*          9. Total Wins this season    *");
+	printf("\n*         10. Total Loses this season   *");
+	printf("\n*         11. Win Percentage this season*");
+	printf("\n*****************************************\n");
+
+}
+//display this menu if choice is 3
+
+void win_menu()
+{
+	printf("*******************************************");
+	printf("\n*          1. Total Wins this season    *");
+	printf("\n*          2. Total Loses this season   *");
+	printf("\n*          3. Win Percentage this season*");
+	printf("\n*****************************************\n");
+
+}
+//display this menu when the user selects a choice from either the offensive or defensive menu
+
+void specifics()
+{
+	printf("*******************************************");
+	printf("\n*   Please Specify Which Team and Year  *");
+	printf("\n*******************************************");
+
+	printf("\n*   Enter the Team you Wish to Display  *");
+	// possibly display a table or list of teams?
+	scanf("%s", &team);
+	printf("\n*   Enter the Year you Wish to Display  *");
+	scanf("%s", &year);
+}
+//after the specifics are entered the stats for that team and year depending
+//on what the user selected will be shown to them
+
+//just a draft. can be changed however to fit the project and make it as easy as possible

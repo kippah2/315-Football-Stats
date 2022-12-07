@@ -34,10 +34,10 @@ WriteMemoryCallback (void *contents, size_t size, size_t nmemb, void *userp)
 
   char *ptr = realloc (mem->memory, mem->size + realsize + 1);
   if (!ptr)
-    {
-      printf ("not enough memory (realloc returned NULL)\n");
-      return 0;
-    }
+	{
+  	printf ("not enough memory (realloc returned NULL)\n");
+  	return 0;
+	}
 
   mem->memory = ptr;
   memcpy (&(mem->memory[mem->size]), contents, realsize);
@@ -61,7 +61,7 @@ size_t write_response_data(void *ptr, size_t size, size_t nmemb, void *stream) {
   // allocate memory for the response data
   char* data = malloc(data_size + 1);
   if (data == NULL) {
-    return 0;
+	return 0;
   }
 
   // copy the response data from the API to the allocated memory
@@ -72,53 +72,55 @@ size_t write_response_data(void *ptr, size_t size, size_t nmemb, void *stream) {
 // parse the response data and extract the relevant information
   char* team_name = strstr(data, "name");
   if (team_name != NULL) {
-    team_name += strlen("name") + 3;
-    char* end = strchr(team_name, '"');
-    if (end != NULL) {
-      *end = '\0';
-    }
-    printf("Team Name: %s\n", team_name);}
+	team_name += strlen("name") + 3;
+	char* end = strchr(team_name, '"');
+	if (end != NULL) {
+  	*end = '\0';
+	}
+	printf("Team Name: %s\n", team_name);}
 
+	
+//makes it so the output string is always the same despite the length of the team name
 int l_length;
-l_length=(30-strlen("Eagles"));
-//rn only works for the eagles im working on fixing that
+l_length=(30-strlen("Rams"));//team should be replaced with an input variable
+
 //must have function before each parse    
  memcpy(data, ptr, data_size);
 // parse the response data and extract the relevant information
   data[data_size] = '\0';   
-    char* team_receives = strstr(data, "Eagles");
+	char* team_receives = strstr(data, "Rams");//team should be replaced with an input variable
   if (team_receives != NULL) {
-    team_receives += strlen("receives:") + (33-l_length); //11
-    char* end = strchr(team_receives, ',');
-    if (end != NULL) {
-      *end = '\0';
-    }
-    printf("Receives made%s\n", team_receives);}
+	team_receives += strlen("receives:") + (33-l_length); //11
+	char* end = strchr(team_receives, ',');
+	if (end != NULL) {
+  	*end = '\0';
+	}
+	printf("Receives made%s\n", team_receives);}
  
 v_data = team_receives;
     
   memcpy(data, ptr, data_size);
   data[data_size] = '\0';   
-    char* team_touchdowns = strstr(data, v_data);
+	char* team_touchdowns = strstr(data, v_data);
   if (team_touchdowns != NULL) {
-    team_touchdowns += strlen("touchdowns:") + (30-l_length); //27
-    char* end = strchr(team_touchdowns, ',');
-    if (end != NULL) {
-      *end = '\0';
-    }
-    printf("Touchdowns made%s\n", team_touchdowns);}
+	team_touchdowns += strlen("touchdowns:") + 6; //27
+	char* end = strchr(team_touchdowns, ',');
+	if (end != NULL) {
+  	*end = '\0';
+	}
+	printf("Touchdowns made%s\n", team_touchdowns);}
     
 v_data=team_touchdowns;
    memcpy(data, ptr, data_size);
   data[data_size] = '\0';   
-    char* team_yards = strstr(data, v_data);
+	char* team_yards = strstr(data, v_data);
   if (team_touchdowns != NULL) {
-    team_touchdowns += strlen("yards:") + (30-l_length);//5
-    char* end = strchr(team_touchdowns, ',');
-    if (end != NULL) {
-      *end = '\0';
-    }
-    printf("Yards travelled:%s\n", team_touchdowns);}
+	team_touchdowns += strlen("yards:") + 6;//5
+	char* end = strchr(team_touchdowns, ',');
+	if (end != NULL) {
+  	*end = '\0';
+	}
+	printf("Yards travelled:%s\n", team_touchdowns);}
     
     
     
@@ -141,49 +143,49 @@ request ()
   CURLcode res;
   curl = curl_easy_init ();
   if (curl)
+	{
+  	//define api call as GET and direct it to given URL
+  	curl_easy_setopt (curl, CURLOPT_CUSTOMREQUEST, "GET");
+  	curl_easy_setopt (curl, CURLOPT_URL,
+   		 "https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/receiving-stats/offense/2019");
+  	curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1L);
+
+  	//use curl over https
+  	curl_easy_setopt (curl, CURLOPT_DEFAULT_PROTOCOL, "https");
+
+  	struct curl_slist *headers = NULL;
+
+  	//send api key in curl header to endnode can identify who is requesting
+  	headers =
+    curl_slist_append (headers,
+   			"x-rapidapi-key: f214693c05mshcb4f9b9797a4754p1c6cc7jsn454debc36d9a");
+  	//define API host in header of curl
+  	headers =
+    curl_slist_append (headers,
+   			"x-rapidapi-host: nfl-team-stats.p.rapidapi.com");
+
+  	curl_easy_setopt (curl, CURLOPT_HTTPHEADER, headers);
+
+  	//send data to struct MemoryStruct
+  	curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data);
+ 	// curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
+
+  	//now that parameters for curl are set, run curl
+  	res = curl_easy_perform (curl);
+
+  	//if curl function doesnt return success, say there was an error
+ /* 	if (res != CURLE_OK)
     {
-      //define api call as GET and direct it to given URL
-      curl_easy_setopt (curl, CURLOPT_CUSTOMREQUEST, "GET");
-      curl_easy_setopt (curl, CURLOPT_URL,
-			"https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/receiving-stats/offense/2019");
-      curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1L);
-
-      //use curl over https
-      curl_easy_setopt (curl, CURLOPT_DEFAULT_PROTOCOL, "https");
-
-      struct curl_slist *headers = NULL;
-
-      //send api key in curl header to endnode can identify who is requesting
-      headers =
-	curl_slist_append (headers,
-			   "x-rapidapi-key: f214693c05mshcb4f9b9797a4754p1c6cc7jsn454debc36d9a");
-      //define API host in header of curl
-      headers =
-	curl_slist_append (headers,
-			   "x-rapidapi-host: nfl-team-stats.p.rapidapi.com");
-
-      curl_easy_setopt (curl, CURLOPT_HTTPHEADER, headers);
-
-      //send data to struct MemoryStruct
-      curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data);
-     // curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
-
-      //now that parameters for curl are set, run curl
-      res = curl_easy_perform (curl);
-
-      //if curl function doesnt return success, say there was an error
- /*     if (res != CURLE_OK)
-	{
-	  fprintf (stderr, "curl_easy_perform() failed: %s\n",
-		   curl_easy_strerror (res));
-	}
-      else
-	{
-	  printf ("%lu bytes retrieved\n", (unsigned long) chunk.size);
-	}
-	
-*/
+      fprintf (stderr, "curl_easy_perform() failed: %s\n",
+   		curl_easy_strerror (res));
     }
+  	else
+    {
+      printf ("%lu bytes retrieved\n", (unsigned long) chunk.size);
+    }
+    
+*/
+	}
   //cleans up curl from memory
   curl_easy_cleanup (curl);
   free (chunk.memory);
@@ -209,6 +211,8 @@ request ()
 int main ()
 {
   request();
-  
+ 
 }
+
+
 

@@ -80,13 +80,13 @@ size_t write_response_data(void *ptr, size_t size, size_t nmemb, void *stream) {
     printf("Team Name: %s\n", team_name);}
 
 int l_length;
-l_length=(30-strlen("chargers"));
-
+l_length=(30-strlen("Eagles"));
+//rn only works for the eagles im working on fixing that
 //must have function before each parse    
  memcpy(data, ptr, data_size);
 // parse the response data and extract the relevant information
   data[data_size] = '\0';   
-    char* team_receives = strstr(data, "Chargers");
+    char* team_receives = strstr(data, "Eagles");
   if (team_receives != NULL) {
     team_receives += strlen("receives:") + (33-l_length); //11
     char* end = strchr(team_receives, ',');

@@ -68,33 +68,38 @@ size_t write_response_data(void *ptr, size_t size, size_t nmemb, void *stream) {
   memcpy(data, ptr, data_size);
   data[data_size] = '\0';
 
- char *v_data;
+  char *v_data;
 // parse the response data and extract the relevant information
   char* team_name = strstr(data, "name");
   if (team_name != NULL) {
-	team_name += strlen("name") + 3;
-	char* end = strchr(team_name, '"');
-	if (end != NULL) {
-  	*end = '\0';
-	}
-	printf("Team Name: %s\n", team_name);}
+    team_name += strlen("name") + 3;
+    char* end = strchr(team_name, '"');
+    if (end != NULL) {
+      *end = '\0';
+    }
+    }
+    char* user_input_name;
+    
+    
+    printf("Input a team name to find their stats: ");
+    scanf("%s", user_input_name);
+    printf("Team Name: %s\n", user_input_name);
 
-	
-//makes it so the output string is always the same despite the length of the team name
+//variable so despite team name length all outputs are the same
 int l_length;
-l_length=(30-strlen("Rams"));//team should be replaced with an input variable
+l_length=(30-strlen(user_input_name));
 
 //must have function before each parse    
  memcpy(data, ptr, data_size);
 // parse the response data and extract the relevant information
   data[data_size] = '\0';   
-	char* team_receives = strstr(data, "Rams");//team should be replaced with an input variable
+    char* team_receives = strstr(data, user_input_name);
   if (team_receives != NULL) {
-	team_receives += strlen("receives:") + (33-l_length); //11
-	char* end = strchr(team_receives, ',');
-	if (end != NULL) {
-  	*end = '\0';
-	}
+    team_receives += strlen("receives:") + (33-l_length); //11
+    char* end = strchr(team_receives, ',');
+    if (end != NULL) {
+      *end = '\0';
+    }
 	printf("Receives made%s\n", team_receives);}
  
 v_data = team_receives;

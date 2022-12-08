@@ -20,7 +20,7 @@ void stats_menu()
 	printf("\n*    The C Team Football Stats Program    *");
 	printf("\n*  Please Choose From the Options Below   *");
 	printf("\n*           1. Offensive Stats            *");
-	printf("\n*           2. Defensive Stats            *");//this option corresponds to who was the defending team when inputting a team. Aka in a game steelers v broncos. 
+	printf("\n*           2. Defensive Stats            *");//this option corresponds to who was the defending team when inputting a team. Aka in a game steelers v broncos.
 	printf("\n*           3. Win statistics             *");//if you input steelers it will give you the broncos stats.
 	printf("\n*******************************************\n");
 }
@@ -31,14 +31,14 @@ void offensive_menu()
 {
 	printf("*******************************************");
 	printf("\n* Choose Which Stat You Want to Look at *");
-	printf("\n*          1. Total Receives made       *");
-	printf("\n*          2. Total Receving Touchdowns *");
-	printf("\n*          3. Total Yards Travelled  (total yards passing)    *");
-	printf("\n*          4. Total Yards Rushing       *");
-	printf("\n*          5. Total Rushed Touchdowns   *");
-	printf("\n*          6. Total Yards Passing       *");
-	printf("\n*          7. Total Completed Passes    *");
-	printf("\n*          8. Total Passed Touchdowns   *");
+	printf("\n*          1. Receptions                *");
+	printf("\n*          2. Receiving Touchdowns      *");
+	printf("\n*          3. Receiving Yards gained    *");
+	printf("\n*          4. Rushing Yards Gained      *");
+	printf("\n*          5. Rushing Touchdowns        *");
+	printf("\n*          6. Passes Completed          *");
+	printf("\n*          7. Passing Touchdowns        *");
+	printf("\n*          8. Yards gained by passing   *");
 	printf("\n*****************************************\n");
 
 }
@@ -48,14 +48,14 @@ void offensive_menu()
 void defensive_menu()
 {
 	printf("*******************************************");
-	printf("\n*          1. Total Receives made       *");
-	printf("\n*          2. Total Receving Touchdowns *");
-	printf("\n*          3. Total Yards Travelled     *");
-	printf("\n*          4. Total Rushing Yards       *");
-	printf("\n*          5. Total Rushing Touchdowns  *");
-	printf("\n*          6. Total Yards Passed        *");
-	printf("\n*          7. Total Completed Passes    *");
-	printf("\n*          8. Total Passed Touchdowns   *");
+//	printf("\n*          1. Receptions                *");
+//	printf("\n*          2. Receiving Touchdowns      *");  the api we are using does not work for these options
+//	printf("\n*          3. Receiving Yards gained    *");
+	printf("\n*          4. Rushing Yards Gained      *");
+	printf("\n*          5. Rushing Touchdowns        *");
+	printf("\n*          6. Passes Completed          *");
+	printf("\n*          7. Passing Touchdowns        *");
+	printf("\n*          8. Yards gained by passing   *");
 	printf("\n*****************************************\n");
 
 }
@@ -86,11 +86,6 @@ void specifics()
 }
 //after the specifics are entered the stats for that team and year depending
 //on what the user selected will be shown to them
-
-//just a draft. can be changed however to fit the project and make it as easy as possible
-
-//just a draft. can be changed however to fit the project and make it as easy as possible
-//We will probably need another, smaller structure that holds different statistics about a team. This will need to be done post-parsing.
 
 //Defines structure for holding the results of the API call. Build another function that uses what happens in here to parse it.
 struct MemoryStruct

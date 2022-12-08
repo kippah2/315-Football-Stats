@@ -470,7 +470,7 @@ request ()
       curl_easy_setopt (curl, CURLOPT_HTTPHEADER, headers);
 
       //send data to struct MemoryStruct
-      
+//needs fixed to work rn defaulting to write response_data_win	  
       if (user_main_menu_input==1){
       curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_offensive);}
       if (user_main_menu_input==2){

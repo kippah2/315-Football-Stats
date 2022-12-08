@@ -470,15 +470,21 @@ request ()
       curl_easy_setopt (curl, CURLOPT_HTTPHEADER, headers);
 
       //send data to struct MemoryStruct
-//needs fixed to work rn defaulting to write response_data_win	  
-      if (user_main_menu_input==1){
-      curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_offensive);}
-      if (user_main_menu_input==2){
-      curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_defensive);
-      }
-      else{
+//send data to struct MemoryStruct
+      switch(user_main_menu_input){
+      case  1:
+      curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_offensive_receiving);
+      break;
+      case  2:
+      curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_defensive_receiving);
+      break;
+      case 3:
       curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_win);
-      }
+      break;
+      default:
+      	printf("Input not recognized");
+      	}
+      
      // curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
 
       //now that parameters for curl are set, run curl

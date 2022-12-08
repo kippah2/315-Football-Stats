@@ -498,33 +498,37 @@ request ()
     {
       //define api call as GET and direct it to given URL
       curl_easy_setopt (curl, CURLOPT_CUSTOMREQUEST, "GET");
-  /*   printf("\n****************************************");
+  /* printf("\n****************************************");
      printf("\n*Please Specify which Team             *");
      printf("\n****************************************");
      printf("\n*Input a team name to find their stats:");*/
       char* nfl_url;
-     // scanf("%s", year_url);
-      
+     
+      char* year_url;
+      year_url = "2019";
       
      if (user_main_menu_input== 1){
-         		nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/receiving-stats/offense/2019");
-      }
-      if (user_main_menu_input== 2){
-      		nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/rushing-stats/offense/2019");
-       }
-      if (user_main_menu_input== 3){
-     		 nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/passing-stats/offense/2019");
-       }
-      if (user_main_menu_input== 4){
-    		  nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/win-stats/2019");}
-      else{
+          nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/receiving-stats/offense/");
+     }
+     if (user_main_menu_input== 2){
+      	  nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/rushing-stats/offense/");
+     }
+     if (user_main_menu_input== 3){
+     	  nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/passing-stats/offense/");
+     }
+     if (user_main_menu_input== 4){
+    	  nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/win-stats/");}
+     else{
       	printf("Input not Recognized");
-      	}
-     
+     }
+      	
+      	
+      char buf[256];
+      snprintf(buf, sizeof(buf), "%s%s", nfl_url, year_url );
       
       //nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/passing-stats/offense/2019");
       //printf("%s", nfl_url);
-      curl_easy_setopt (curl, CURLOPT_URL, nfl_url);
+      curl_easy_setopt (curl, CURLOPT_URL, buf);
       curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1L);
 
       //use curl over https

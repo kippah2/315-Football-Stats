@@ -20,8 +20,8 @@ void stats_menu()
 	printf("\n*    The C Team Football Stats Program    *");
 	printf("\n*  Please Choose From the Options Below   *");
 	printf("\n*           1. Offensive Stats            *");
-	printf("\n*           2. Defensive Stats            *");
-	printf("\n*           3. Win statistics             *");
+	printf("\n*           2. Defensive Stats            *");//this option corresponds to who was the defending team when inputting a team. Aka in a game steelers v broncos. 
+	printf("\n*           3. Win statistics             *");//if you input steelers it will give you the broncos stats.
 	printf("\n*******************************************\n");
 }
 

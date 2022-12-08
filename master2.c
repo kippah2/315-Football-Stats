@@ -19,11 +19,12 @@ void stats_menu()
 	printf("*********************************************");
 	printf("\n*    The C Team Football Stats Program    *");
 	printf("\n*  Please Choose From the Options Below   *");
-	printf("\n*           1. Offensive Stats(rn calls the receiving function)            *");
-	printf("\n*           2. Defensive Stats(rn calls the rushing function)           *");//this option corresponds to who was the defending team when inputting a team. Aka in a game steelers v broncos.
-	printf("\n*           3. Win statistics             *");//if you input steelers it will give you the broncos stats.
+	printf("\n*           1. Offensive Receiving Stats  *");
+	printf("\n*           2. Offensive Rushing Stats    *");
+	printf("\n*           3. Offensive Passing Stats    *");
+	printf("\n*           4. Win statistics             *");
 	printf("\n*******************************************\n");
-	printf("Please input a value between 1-3: ");
+	printf("Please input a value between 1-4: ");
 }
 
 //display this menu if the choice is 1
@@ -131,7 +132,7 @@ WriteMemoryCallback (void *contents, size_t size, size_t nmemb, void *userp)
 
 
 // function to handle the response data from the API
-size_t write_response_data_offensive_receiving(void *ptr, size_t size, size_t nmemb, void *stream) {
+size_t write_response_data_passing(void *ptr, size_t size, size_t nmemb, void *stream) {
   // calculate the size of the response data
   size_t data_size = size * nmemb;
 
@@ -156,9 +157,11 @@ size_t write_response_data_offensive_receiving(void *ptr, size_t size, size_t nm
     }
     }
     char* user_input_name;
+    printf("\n****************************************");
+    printf("\n*Please Specify which Team             *");
+    printf("\n****************************************");
+    printf("\n*Input a team name to find their stats:");
     
-    
-    printf("Input a team name to find their stats: ");
     scanf("%s", user_input_name);
     printf("Team Name: %s\n", user_input_name);
 
@@ -171,12 +174,12 @@ l_length=(30-strlen(user_input_name));
   data[data_size] = '\0';   
     char* team_receives = strstr(data, user_input_name);
   if (team_receives != NULL) {
-    team_receives += strlen("receives:") + (33-l_length); //11
+    team_receives += strlen("passYards:") + 11; //11
     char* end = strchr(team_receives, ',');
     if (end != NULL) {
       *end = '\0';
     }
-    printf("Receptions%s\n", team_receives);}
+    printf("Yards gained by passing%s\n", team_receives);}
  
 v_data = team_receives;
     
@@ -184,24 +187,24 @@ v_data = team_receives;
   data[data_size] = '\0';   
     char* team_touchdowns = strstr(data, v_data);
   if (team_touchdowns != NULL) {
-    team_touchdowns += strlen("touchdowns:") + 6; //27
+    team_touchdowns += strlen("completions:") + 7; //27
     char* end = strchr(team_touchdowns, ',');
     if (end != NULL) {
       *end = '\0';
     }
-    printf("Receiving Touchdowns%s\n", team_touchdowns);}
+    printf("Passings Completed%s\n", team_touchdowns);}
     
 v_data=team_touchdowns;
    memcpy(data, ptr, data_size);
   data[data_size] = '\0';   
     char* team_yards = strstr(data, v_data);
   if (team_touchdowns != NULL) {
-    team_touchdowns += strlen("yards:") + 6;//5
+    team_touchdowns += strlen("touchdowns:") + 7;//5
     char* end = strchr(team_touchdowns, ',');
     if (end != NULL) {
       *end = '\0';
     }
-    printf("Receiving Yards gained:%s\n", team_touchdowns);}
+    printf("Passing:%s\n", team_touchdowns);}
     
     
     
@@ -237,7 +240,10 @@ size_t write_response_data_rushing(void *ptr, size_t size, size_t nmemb, void *s
     char* user_input_name;
     
     
-    printf("Input a team name to find their stats: ");
+     printf("\n****************************************");
+    printf("\n*Please Specify which Team             *");
+    printf("\n****************************************");
+    printf("\n*Input a team name to find their stats:");
     scanf("%s", user_input_name);
     printf("Team Name: %s\n", user_input_name);
 
@@ -327,7 +333,10 @@ size_t write_response_data_win(void *ptr2, size_t size, size_t nmemb, void *stre
   scanf("%d", &win_menu_option);*/
   
   //have user input team name
-    printf("Input a team name to find their stats: ");
+    printf("\n****************************************");
+    printf("\n*Please Specify which Team             *");
+    printf("\n****************************************");
+    printf("\n*Input a team name to find their stats:");
     scanf("%s", user_input_name);
     printf("Team Name: %s\n", user_input_name);
 
@@ -382,7 +391,88 @@ v_data=team_loses;
    
     
   }
-  
+ //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+// function to handle the response data from the API
+size_t write_response_data_offensive_receiving(void *ptr, size_t size, size_t nmemb, void *stream) {
+  // calculate the size of the response data
+  size_t data_size = size * nmemb;
+
+  // allocate memory for the response data
+  char* data = malloc(data_size + 1);
+  if (data == NULL) {
+    return 0;
+  }
+
+  // copy the response data from the API to the allocated memory
+  memcpy(data, ptr, data_size);
+  data[data_size] = '\0';
+
+ char *v_data;
+// parse the response data and extract the relevant information
+  char* team_name = strstr(data, "name");
+  if (team_name != NULL) {
+    team_name += strlen("name") + 3;
+    char* end = strchr(team_name, '"');
+    if (end != NULL) {
+      *end = '\0';
+    }
+    }
+    char* user_input_name;
+    
+    
+     printf("\n****************************************");
+    printf("\n*Please Specify which Team             *");
+    printf("\n****************************************");
+    printf("\n*Input a team name to find their stats:");
+    scanf("%s", user_input_name);
+    printf("Team Name: %s\n", user_input_name);
+
+int l_length;
+l_length=(30-strlen(user_input_name));
+
+//must have function before each parse    
+ memcpy(data, ptr, data_size);
+// parse the response data and extract the relevant information
+  data[data_size] = '\0';   
+    char* team_receives = strstr(data, user_input_name);
+  if (team_receives != NULL) {
+    team_receives += strlen("receives:") + (33-l_length); //11
+    char* end = strchr(team_receives, ',');
+    if (end != NULL) {
+      *end = '\0';
+    }
+    printf("Receptions%s\n", team_receives);}
+ 
+v_data = team_receives;
+    
+  memcpy(data, ptr, data_size);
+  data[data_size] = '\0';   
+    char* team_touchdowns = strstr(data, v_data);
+  if (team_touchdowns != NULL) {
+    team_touchdowns += strlen("touchdowns:") + 6; //27
+    char* end = strchr(team_touchdowns, ',');
+    if (end != NULL) {
+      *end = '\0';
+    }
+    printf("Receiving Touchdowns%s\n", team_touchdowns);}
+    
+v_data=team_touchdowns;
+   memcpy(data, ptr, data_size);
+  data[data_size] = '\0';   
+    char* team_yards = strstr(data, v_data);
+  if (team_touchdowns != NULL) {
+    team_touchdowns += strlen("yards:") + 6;//5
+    char* end = strchr(team_touchdowns, ',');
+    if (end != NULL) {
+      *end = '\0';
+    }
+    printf("Receiving Yards gained:%s\n", team_touchdowns);}
+    
+    
+    
+    
+  } 
 //This function handles the API call. We will modify this later so that it can call a specific API endnode. We do this by changing the URL. We can implement this by giving the user an interactive menu.
 //API being used is NFL Team Stats. 'https://rapidapi.com/DathanStoneDev/api/nfl-team-stats'
 
@@ -402,48 +492,37 @@ request ()
   scanf("%d", &user_main_menu_input);
   //printf("%d", user_main_menu_input);
   char* nfl_stats;
-  char* position_stats;
-  int year_url = 2019;
+  
+  char* year_url;
   if (curl)
     {
       //define api call as GET and direct it to given URL
       curl_easy_setopt (curl, CURLOPT_CUSTOMREQUEST, "GET");
- /*     if (user_main_menu_input==1){
-      		nfl_stats ="offense";
-      		offensive_menu();
-      		scanf("%d", &user_main_menu_input2);
-      
-      if (user_main_menu_input2==1){
-      		position_stats ="rushing-stats";
-      }
-      else{
-      		position_stats ="receiving-stats";
-            }
-      }
-      if (user_main_menu_input==2){
-      		nfl_stats ="defense";
-      		defensive_menu();
-      		scanf("%d", &user_main_menu_input2);
-      
-      if (user_main_menu_input2==1){
-      		position_stats ="rushing-stats";
-      }
-      else{
-      		position_stats ="receiving-stats";
-            }
-            }
-      else{
-      		nfl_stats ="win-stat";
-      		win_menu();
-            }
-      
-      */
-      
-      
-      
-      curl_easy_setopt (curl, CURLOPT_CUSTOMREQUEST, "GET");
+  /*   printf("\n****************************************");
+     printf("\n*Please Specify which Team             *");
+     printf("\n****************************************");
+     printf("\n*Input a team name to find their stats:");*/
       char* nfl_url;
-      nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/rushing-stats/offense/2019");
+     // scanf("%s", year_url);
+      
+      
+     if (user_main_menu_input== 1){
+         		nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/receiving-stats/offense/2019");
+      }
+      if (user_main_menu_input== 2){
+      		nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/rushing-stats/offense/2019");
+       }
+      if (user_main_menu_input== 3){
+     		 nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/passing-stats/offense/2019");
+       }
+      if (user_main_menu_input== 4){
+    		  nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/win-stats/2019");}
+      else{
+      	printf("Input not Recognized");
+      	}
+     
+      
+      //nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/passing-stats/offense/2019");
       //printf("%s", nfl_url);
       curl_easy_setopt (curl, CURLOPT_URL, nfl_url);
       curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1L);
@@ -472,11 +551,14 @@ request ()
       case  2:
       curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_rushing);
       break;
-      case 3:
+      case 3: 
+      curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_passing);
+      break;
+      case 4:
       curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_win);
       break;
       default:
-      	printf("dumbass");
+      	printf("Input not Recognized");
       	}
       
      // curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
@@ -525,12 +607,10 @@ request ()
 //just a draft. can be changed however to fit the project and make it as easy as possible
 int main ()
 {
-  int loop_menu = 1;
-  while (loop_menu!=0){
+  
   stats_menu();
   request();
-  }
-  
+    
   
   
   

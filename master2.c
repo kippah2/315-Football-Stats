@@ -31,9 +31,9 @@ void offensive_menu()
 {
 	printf("*******************************************");
 	printf("\n* Choose Which Stat You Want to Look at *");
-	printf("\n*          1. Total Receives made   (total yards passing)    *");
+	printf("\n*          1. Total Receives made       *");
 	printf("\n*          2. Total Receving Touchdowns *");
-	printf("\n*          3. Total Yards Travelled     *");
+	printf("\n*          3. Total Yards Travelled  (total yards passing)    *");
 	printf("\n*          4. Total Yards Rushing       *");
 	printf("\n*          5. Total Rushed Touchdowns   *");
 	printf("\n*          6. Total Yards Passing       *");

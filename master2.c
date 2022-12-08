@@ -34,7 +34,7 @@ void offensive_menu()
 	printf("\n* Choose Which Stat You Want to Look at *");
 	printf("\n*          1. Receptions                *");
 	printf("\n*          2. Receiving Touchdowns      *");
-	printf("\n*          3. Receiving Yards gained    *");
+	printf("\n*          3. Receiving Yards gained    *");//reception stats and passing stats are the same, can reuse function for reception for passing.
 	printf("\n*          4. Rushing Yards Gained      *");
 	printf("\n*          5. Rushing Touchdowns        *");
 	printf("\n*          6. Passes Completed          *");

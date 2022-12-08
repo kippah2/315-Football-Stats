@@ -31,12 +31,12 @@ void offensive_menu()
 {
 	printf("*******************************************");
 	printf("\n* Choose Which Stat You Want to Look at *");
-	printf("\n*          1. Total Receives made       *");
+	printf("\n*          1. Total Receives made   (total yards passing)    *");
 	printf("\n*          2. Total Receving Touchdowns *");
 	printf("\n*          3. Total Yards Travelled     *");
-	printf("\n*          4. Total Rushed Yards        *");
+	printf("\n*          4. Total Yards Rushing       *");
 	printf("\n*          5. Total Rushed Touchdowns   *");
-	printf("\n*          6. Total Yards Passed        *");
+	printf("\n*          6. Total Yards Passing       *");
 	printf("\n*          7. Total Completed Passes    *");
 	printf("\n*          8. Total Passed Touchdowns   *");
 	printf("\n*****************************************\n");
@@ -51,14 +51,11 @@ void defensive_menu()
 	printf("\n*          1. Total Receives made       *");
 	printf("\n*          2. Total Receving Touchdowns *");
 	printf("\n*          3. Total Yards Travelled     *");
-	printf("\n*          4. Total Rushed Yards        *");
-	printf("\n*          5. Total Rushed Touchdowns   *");
+	printf("\n*          4. Total Rushing Yards       *");
+	printf("\n*          5. Total Rushing Touchdowns  *");
 	printf("\n*          6. Total Yards Passed        *");
 	printf("\n*          7. Total Completed Passes    *");
 	printf("\n*          8. Total Passed Touchdowns   *");
-	printf("\n*          9. Total Wins this season    *");
-	printf("\n*         10. Total Loses this season   *");
-	printf("\n*         11. Win Percentage this season*");
 	printf("\n*****************************************\n");
 
 }

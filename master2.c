@@ -505,6 +505,7 @@ request ()
       char* nfl_url;
      
       char* year_url;
+	  //only issue is you cant change the year
       year_url = "2019";
       
      if (user_main_menu_input== 1){

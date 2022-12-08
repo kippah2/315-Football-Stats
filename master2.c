@@ -23,6 +23,7 @@ void stats_menu()
 	printf("\n*           2. Defensive Stats            *");//this option corresponds to who was the defending team when inputting a team. Aka in a game steelers v broncos.
 	printf("\n*           3. Win statistics             *");//if you input steelers it will give you the broncos stats.
 	printf("\n*******************************************\n");
+	printf("Please input a value between 1-3: ");
 }
 
 //display this menu if the choice is 1

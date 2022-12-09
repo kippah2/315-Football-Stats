@@ -563,7 +563,7 @@ request ()
       curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_win);
       break;
       default:
-      	printf("Input not Recognized");
+      	//printf("Input not Recognized");
       	}
       
      // curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);

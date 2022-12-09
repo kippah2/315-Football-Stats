@@ -505,7 +505,6 @@ request ()
       char* nfl_url;
      
       char* year_url;
-	  //only issue is you cant change the year
       year_url = "2019";
       
      if (user_main_menu_input== 1){
@@ -520,7 +519,7 @@ request ()
      if (user_main_menu_input== 4){
     	  nfl_url =("https://nfl-team-stats.p.rapidapi.com/v1/nfl-stats/teams/win-stats/");}
      else{
-      	printf("Input not Recognized");
+      	//printf("Input not Recognized");
      }
       	
       	
@@ -563,7 +562,7 @@ request ()
       curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, write_response_data_win);
       break;
       default:
-      	//printf("Input not Recognized");
+      	printf("Input not Recognized");
       	}
       
      // curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
